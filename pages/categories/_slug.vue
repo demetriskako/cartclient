@@ -1,17 +1,27 @@
 <template>
     <div class="section">
         <div class="container is-fluid">
-            <p>Products</p>
+            <div class="columns is-multiline">
+                <div class="column is-3" v-for="product in products" :key="product.slug">
+                    <Product :product="product"></Product>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Product from '@/components/products/Product'
+
     export default {
         data () {
             return {
                 products: []
             }
+        },
+
+        components: {
+            Product
         },
 
         async asyncData ({params, app}) {
