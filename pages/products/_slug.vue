@@ -17,8 +17,34 @@
                         <hr>
 
                         <span class="tag is-rounded is-medium">
-                            {{product.description}}
+                            {{product.price}}
                         </span>
+                    </section>
+
+                    <section class="section">
+                        <form action="">
+                            <ProductVariation
+                                v-for="(variations, type) in product.variations"
+                                :type="type"
+                                :variations="variations"
+                                :key="type"
+                                v-model="form.variation"
+                            />
+
+                            <div class="field has-addons" v-if="form.variation">
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="" id="">
+                                            <option value="">1</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="control">
+                                    <button type="submit" class="button is-info">Add to cart</button>
+                                </div>
+                            </div>
+                        </form>
                     </section>
                 </div>
             </div>
@@ -27,11 +53,21 @@
 </template>
 
 <script>
+    import ProductVariation from "../../components/products/ProductVariation";
+
     export default {
         data() {
             return {
-                product: null
+                product: null,
+                form: {
+                    variation: '',
+                    quantity: 1,
+                }
             }
+        },
+
+        components: {
+            ProductVariation,
         },
 
         async asyncData ({params, app}) {
