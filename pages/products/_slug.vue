@@ -19,6 +19,11 @@
                         <span class="tag is-rounded is-medium">
                             {{product.price}}
                         </span>
+
+                        <span class="tag is-medium is-dark is-rounded"
+                            v-if="!product.in_stock">
+                            out of stock
+                        </span>
                     </section>
 
                     <section class="section">
@@ -31,11 +36,15 @@
                                 v-model="form.variation"
                             />
 
+                            <br>
+
                             <div class="field has-addons" v-if="form.variation">
                                 <div class="control">
                                     <div class="select is-fullwidth">
-                                        <select name="" id="">
-                                            <option value="">1</option>
+                                        <select name="" id="" v-model="form.quantity">
+                                            <option v-for="x in parseInt(form.variation.stock_count)">
+                                                {{ x }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -63,6 +72,12 @@
                     variation: '',
                     quantity: 1,
                 }
+            }
+        },
+
+        watch: {
+            'form.variation' () {
+                this.form.quantity = 1
             }
         },
 
