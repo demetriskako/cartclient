@@ -42,7 +42,27 @@ export default {
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'auth/login',
+            method: 'post',
+            propertyName: 'meta.token'
+          },
+          user: {
+            url: 'auth/me',
+            method: 'get',
+            propertyName: 'data'
+          }
+        }
+      }
+    }
+  },
 
   axios: {
     baseURL: 'http://ecommerce.test/api/',
